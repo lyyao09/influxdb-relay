@@ -1,4 +1,4 @@
-FROM arm64v8/alpine:edge
+FROM multiarch/alpine:aarch64-edge
 
 EXPOSE 8086
 RUN mkdir /go
