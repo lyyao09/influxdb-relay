@@ -1,8 +1,10 @@
 FROM multiarch/alpine:aarch64-edge
 
-EXPOSE 8086
 ENV GOPATH /go
 ENV GOBIN /go/bin
+ENV CGO_ENABLED=0 
+ENV GOOS=linux 
+ENV GOARCH=arm64
 ENV INFLUXDB_RELAY github.com/influxdata/influxdb-relay
 WORKDIR $GOPATH/src/$INFLUXDB_RELAY/
 COPY . $GOPATH/src/$INFLUXDB_RELAY/
@@ -12,14 +14,4 @@ RUN set -ex && \
 		git \
 		go \
 		build-base && \
-		go get github.com/sparrc/gdm && \
-		/go/bin/gdm restore && \
-    go install main.go && \
-    apk del .build-deps && \
-	  rm -rf $GOPATH/pkg && \
-	  rm -rf $GOPATH/src && \
-	  rm -rf /usr && \
-	  rm -rf $GOPATH/bin/gdm && \
-    mv $GOPATH/bin/main $GOPATH/bin/influxdb-relay
-WORKDIR /root
-CMD /go/bin/influxdb-relay -config influxdb-relay.toml
+                go get -u github.com/influxdata/influxdb-relay
