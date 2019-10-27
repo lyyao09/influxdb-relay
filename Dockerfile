@@ -1,7 +1,6 @@
 FROM multiarch/alpine:aarch64-edge
 
 EXPOSE 8086
-RUN mkdir /go
 ENV GOPATH /go
 ENV GOBIN /go/bin
 ENV INFLUXDB_RELAY github.com/influxdata/influxdb-relay
